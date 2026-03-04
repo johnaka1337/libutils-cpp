@@ -5,7 +5,7 @@ project(platform LANGUAGES CXX)
 add_library(${PROJECT_NAME} INTERFACE)
 add_library(utils::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_23)
+target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_23 cxx_nonstatic_member_init)
 
 target_sources(platform
     PUBLIC # IDE DX workaround: Must be INTERFACE conceptually, but PUBLIC shows files in project tree
@@ -13,6 +13,7 @@ target_sources(platform
     BASE_DIRS include
     FILES
         include/utils/platform/types.hpp
+        include/utils/platform/features.hpp
         include/utils/platform.hpp
 )
 
