@@ -88,8 +88,6 @@ struct features
     inline static bool avx512bw{ false };
 
 
-
-
     features( const features& ) = delete;
     features( features&& ) noexcept = delete;
     features& operator = ( const features& ) = delete;
@@ -163,6 +161,7 @@ struct features
 
     inline static bool avx2{ false };
     inline static bool avx512bw{ false };
+
 
     features( const features& ) = delete;
     features( features&& ) noexcept = delete;
