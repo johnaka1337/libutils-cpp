@@ -67,7 +67,7 @@ inline uint64_t xgetbv( ) noexcept
     // Execute xgetbv with ECX=0. The 64-bit result is split
     // between EDX (high) and EAX (low).
     __asm__ __volatile__( "xgetbv" : "=a"( eax ), "=d"( edx ) : "c"( 0 ) );
-    return (static_cast <uint64_t >( edx ) << 32) | eax;
+    return (static_cast< uint64_t >( edx ) << 32) | eax;
 #endif
 }
 } // namespace details
@@ -80,12 +80,14 @@ inline uint64_t xgetbv( ) noexcept
  */
 struct features
 {
-    inline static bool os_uses_xsave{ false };
+    inline static bool os_uses_xsave{};
     inline static bool os_saves_ymm{ false };
     inline static bool os_saves_zmm{ false };
 
     inline static bool avx2{ false };
     inline static bool avx512bw{ false };
+
+
 
 
     features( const features& ) = delete;
