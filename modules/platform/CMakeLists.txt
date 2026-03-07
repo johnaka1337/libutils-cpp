@@ -19,11 +19,11 @@ target_sources(${PROJECT_NAME}
         include/utils/platform.hpp
 )
 
-if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    target_compile_options(${PROJECT_NAME} INTERFACE -mavx2 -mbmi -mbmi2 -mlzcnt)
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    target_compile_options(${PROJECT_NAME} INTERFACE /arch:AVX2)
-endif()
+#if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+#    target_compile_options(${PROJECT_NAME} INTERFACE -mavx2 -mbmi -mbmi2 -mlzcnt)
+#elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+#    target_compile_options(${PROJECT_NAME} INTERFACE /arch:AVX2)
+#endif()
 
 #include(GNUInstallDirs)
 #install(TARGETS platform
