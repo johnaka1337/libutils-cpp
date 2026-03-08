@@ -13,6 +13,7 @@ target_sources(${PROJECT_NAME}
     BASE_DIRS include
     FILES
         include/utils/strings/concepts.hpp
+        include/utils/strings/char_classification.hpp
         include/utils/strings.hpp
 )
 
