@@ -2,19 +2,21 @@
 
 #include <concepts>
 #include <type_traits>
+#include <string>
+#include <string_view>
 
 
 
 
 namespace utils::strings
 {
-namespace details
-{
 using std::same_as;
 using std::remove_cvref_t;
 
 
 
+namespace details
+{
 /**
  * @brief Concept that checks if a type is a traditional C/C++ character
  * type.
@@ -64,4 +66,35 @@ concept UnicodeCharType = same_as< remove_cvref_t< T >, wchar_t >  ||
 template< typename T >
 concept CharType = details::LegacyCharType< T > ||
                    details::UnicodeCharType< T >;
+
+
+
+/**
+ * @brief Matches owning string types (std::string, std::wstring, etc).
+ *
+ * @details Strictly checks the base type without references or const
+ * qualifiers. Used for in-place mutating algorithms.
+ */
+template< typename T >
+concept StringType =
+    same_as< remove_cvref_t< T >, std::string > ||
+    same_as< remove_cvref_t< T >, std::wstring > ||
+    same_as< remove_cvref_t< T >, std::u8string > ||
+    same_as< remove_cvref_t< T >, std::u16string > ||
+    same_as< remove_cvref_t< T >, std::u32string >;
+
+
+
+/**
+ * @brief Matches anything convertible to a string view.
+ *
+ * @details Supports C-strings (const char*), string literals ("text"),
+ * std::string, and std::string_view itself via C++17 CTAD.
+ * Used for read-only, zero-allocation algorithms.
+ */
+template< typename T >
+concept ViewType = requires( const remove_cvref_t< T >& str )
+{
+    std::basic_string_view{ str };
+};
 } // namespace utils::strings
