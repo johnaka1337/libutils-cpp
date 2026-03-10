@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <string>
 #include <string_view>
+#include <utility>
 
 
 
@@ -97,4 +98,19 @@ concept ViewType = requires( const remove_cvref_t< T >& str )
 {
     std::basic_string_view{ str };
 };
+
+
+
+/**
+ * @brief Helper type trait to extract the underlying character type from a
+ * string or view.
+ *
+ * @details Safely extracts the character type even from C-strings and
+ * string literals by simulating a conversion to std::basic_string_view.
+ */
+template< typename T >
+    requires StringType< T > || ViewType< T >
+using CharTypeOf =
+    typename decltype(
+        std::basic_string_view{ std::declval< const T& >() } )::value_type;
 } // namespace utils::strings
