@@ -12,12 +12,21 @@ target_sources(${PROJECT_NAME}
     FILE_SET HEADERS
     BASE_DIRS include
     FILES
-        include/utils//platform/compiler.hpp
         include/utils/platform/types.hpp
-        include/utils/platform/features.hpp
-        include/utils/platform/simd.hpp
+        include/utils/platform/cpu/registers.hpp
+        include/utils/platform/cpu/cpuid.hpp
+        include/utils/platform/cpu/features_x86-64.hpp
+        include/utils/platform/cpu/features_arm.hpp
+        include/utils//platform/cpu/features.hpp
+
         include/utils/platform.hpp
 )
+
+option(BUILD_${PROJECT_NAME}_TEST "${PROJECT_NAME} tests" OFF)
+if(BUILD_${PROJECT_NAME}_TEST OR BUILD_TESTS)
+    add_executable(${PROJECT_NAME}_test src/${PROJECT_NAME}_test.cpp)
+    target_link_libraries(${PROJECT_NAME}_test PRIVATE ${PROJECT_NAME})
+endif()
 
 #if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
 #    target_compile_options(${PROJECT_NAME} INTERFACE -mavx2 -mbmi -mbmi2 -mlzcnt)

@@ -2,23 +2,39 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <bit>
 
 
 
 
 namespace utils::platform
 {
-using std::size_t;
+using Byte = std::byte;
 
-using std::int8_t;
-using std::uint8_t;
+using Int8  = std::int8_t;
+using UInt8 = std::uint8_t;
 
-using std::int16_t;
-using std::uint16_t;
+using Int16  = std::int16_t;
+using UInt16 = std::uint16_t;
 
-using std::int32_t;
-using std::uint32_t;
+using Int32  = std::int32_t;
+using UInt32 = std::uint32_t;
 
-using std::int64_t;
-using std::uint64_t;
+using Int64  = std::int64_t;
+using UInt64 = std::uint64_t;
+
+using Size = std::size_t;
+
+
+
+constexpr bool IsLittleEndian( ) noexcept
+{
+    return (std::endian::native == std::endian::little);
+}
+
+
+constexpr bool IsBigEndian( ) noexcept
+{
+    return (std::endian::native == std::endian::big);
+}
 } // namespace utils::platform
